@@ -1,27 +1,24 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
-import * as cheerio from "cheerio";
-// import { testView } from "./TreeView/Testview";
-import SearchBookView from "./TreeView/searchBookView";
+import SearchBookTree from "./TreeView/searchBookTree";
+import webView from "./webView/ChaptersReadView";
 export function activate(context: vscode.ExtensionContext) {
   //注册书treeView
   vscode.window.registerTreeDataProvider(
     "jiege-sidebar-bookTree",
-    SearchBookView,
+    SearchBookTree,
   );
   //搜索书本命令
   context.subscriptions.push(
     vscode.commands.registerCommand("xiaoshuo-custom.search", () => {
-      SearchBookView.searchBook();
+      SearchBookTree.searchBook();
     }),
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "xiaoshuo-custom.openTextInfo",
-      (data: any) => {
-        console.log("datya", data);
+      (chaptersPath: any) => {
+        webView(chaptersPath);
       },
     ),
   );

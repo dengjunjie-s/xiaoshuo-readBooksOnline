@@ -1,24 +1,9 @@
 import * as vscode from "vscode";
 const axios = require("axios");
 import * as cheerio from "cheerio";
-let bookConfig = {
-  baseUrl: "https://www.wyill.com",
-  searchBook: {
-    searchUrl: "https://www.wyill.com/s?q=${name}",
-    itemElement: ".bookbox",
-    nameElement: ".bookname",
-    authorElement: ".author",
-    hrefElement: "a",
-  },
-  searchChapters: {
-    listElement: ".listmain",
-    itemElement: "dd",
-    nameElement: "a",
-    hrefElement: "a",
-  },
-};
+import bookConfig from "../utils/bookConfig";
 
-export class SearchBookView implements vscode.TreeDataProvider<Dependency> {
+export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
   constructor() {}
   private _onDidChangeTreeData: vscode.EventEmitter<
     Dependency | undefined | null | void
@@ -51,7 +36,7 @@ export class SearchBookView implements vscode.TreeDataProvider<Dependency> {
   }
 }
 
-export default new SearchBookView();
+export default new SearchBookTree();
 //获取书本列表
 const getBookList = async (searchStr: string) => {
   if (!searchStr) {
@@ -81,7 +66,7 @@ const getBookList = async (searchStr: string) => {
 //获取章节列表
 const getChaptersList = async (bookPath: string) => {
   let { listElement, itemElement, nameElement, hrefElement } =
-    bookConfig.searchChapters;
+    bookConfig.chaptersConfig;
   const { data } = await axios.get(bookConfig.baseUrl + bookPath);
   const $ = cheerio.load(data);
   let chaptersList: Dependency[] = [];
