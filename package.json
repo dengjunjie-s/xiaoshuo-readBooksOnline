@@ -4,7 +4,8 @@
   "description": "摸",
   "publisher": "xiaoshuo-readbooksonline",
   "icon": "static/images/fish.png",
-  "version": "0.0.3",
+  "repository": "https://github.com/dengjunjie-s/xiaoshuo-readBooksOnline",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.75.0"
   },
