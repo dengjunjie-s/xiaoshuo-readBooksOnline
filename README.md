@@ -1,71 +1,54 @@
-# xiaoshuo-custom README
+# xiaoshuo-custom 
 
-This is the README for your extension "xiaoshuo-custom". After writing up a brief description, we recommend including the following sections.
+自定义小说源：
 
-## Features
+1，ctrl+, 
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+2，在 jiege:customSourcePath中设置配置文件路径
 
-For example if there is an image subfolder under your extension project workspace:
+如![./](.\1677228378541.png)
 
-\!\[feature X\]\(images/feature-x.png\)
+```json
+// C:\Users\pig\Desktop\test.json
+//数组可以配置源列表
+[ 
+  {
+     //小说源名
+    "label": "笔趣阁",
+      //小说网站baseurl
+    "baseUrl": "https://www.biquge7.top",
+      //搜索书本配置
+    "searchBook": {
+        //搜索网站
+      "searchUrl": "https://www.biquge7.top/search?keyword=${name}",
+        //书的item元素
+      "itemElement": ".title",
+        //书名元素
+      "nameElement": "a",
+        //作者元素
+      "authorElement": ".author",
+        //书本详情跳转元素
+      "hrefElement": "a"
+    },
+      //章节配置
+    "chaptersConfig": {
+        //章节列表元素
+      "listElement": ".list",
+        //章节item元素
+      "itemElement": "li",
+        //章节名称元素
+      "nameElement": "a",
+        //章节跳转元素
+      "hrefElement": "a"
+    },
+      //小说配置
+    "textConfig": {
+        //小说内容元素
+      "contentElemen": ".text"
+    }
+  }
+]
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+```
 
-## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**

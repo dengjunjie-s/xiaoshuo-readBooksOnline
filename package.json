@@ -2,7 +2,7 @@
   "name": "xiaoshuo-readbooksonline",
   "displayName": "xiaoshuo-readBooksOnline",
   "description": "摸",
-  "publisher": "jiege",
+  "publisher": "xiaoshuo-readbooksonline",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.75.0"
@@ -23,7 +23,7 @@
         {
           "id": "jiege-sidebar",
           "title": "祖安钢琴师",
-          "icon": "static/images/icon.svg"
+          "icon": "static/images/fish.svg"
         }
       ]
     },

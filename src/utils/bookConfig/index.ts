@@ -6,7 +6,8 @@ class BookConfig {
   lastTimePick: any;
   choiceConfig() {
     return new Promise(async (resolve, reject) => {
-      const sourceList = baseConfig;
+      const sourceList = [...baseConfig];
+      console.log(baseConfig);
       const customPath =
         vscode.workspace.getConfiguration("jiege").get("customSourcePath") + "";
       //获取自定义源
