@@ -3,7 +3,8 @@
   "displayName": "xiaoshuo-readBooksOnline",
   "description": "摸",
   "publisher": "xiaoshuo-readbooksonline",
-  "version": "0.0.1",
+  "icon": "static/images/fish.png",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.75.0"
   },

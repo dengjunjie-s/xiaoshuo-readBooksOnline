@@ -6,8 +6,6 @@
 
 2，在 jiege:customSourcePath中设置配置文件路径
 
-如![./](.\1677228378541.png)
-
 ```json
 // C:\Users\pig\Desktop\test.json
 //数组可以配置源列表
