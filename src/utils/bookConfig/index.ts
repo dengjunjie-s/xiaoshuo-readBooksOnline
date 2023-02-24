@@ -1,6 +1,5 @@
 import baseConfig from "./baseConfig";
 import * as vscode from "vscode";
-let Test = (test: any) => {};
 class BookConfig {
   constructor() {}
   config: any;
