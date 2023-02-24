@@ -1,7 +1,8 @@
 {
-  "name": "xiaoshuo-custom",
-  "displayName": "xiaoshuo-custom",
-  "description": "后面改",
+  "name": "xiaoshuo-readbooksonline",
+  "displayName": "xiaoshuo-readBooksOnline",
+  "description": "摸",
+  "publisher": "jiege",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.75.0"
@@ -42,6 +43,16 @@
           "group": "navigation"
         }
       ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "jiegexiaoshuo",
+      "properties": {
+        "jiege.customSourcePath": {
+          "type": "string",
+          "description": "小说源配置文件路径"
+        }
+      }
     }
   },
   "scripts": {

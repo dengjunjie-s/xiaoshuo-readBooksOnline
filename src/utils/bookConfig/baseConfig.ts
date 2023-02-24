@@ -1,6 +1,6 @@
 export default [
   {
-    label: "笔趣阁1",
+    label: "预设：笔趣阁1",
     baseUrl: "https://www.wyill.com",
     searchBook: {
       searchUrl: "https://www.wyill.com/s?q=${name}", //搜索网页：${name}替换为资源
@@ -20,7 +20,7 @@ export default [
     },
   },
   {
-    label: "笔趣阁2",
+    label: "预设：笔趣阁2",
     baseUrl: "https://www.biquge7.top",
     searchBook: {
       searchUrl: "https://www.biquge7.top/search?keyword=${name}",
