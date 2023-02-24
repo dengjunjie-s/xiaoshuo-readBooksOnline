@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 const axios = require("axios");
 import * as cheerio from "cheerio";
-import bookConfig from "../utils/bookConfig";
+import BookConfig from "../utils/bookConfig/index";
 
 export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
   constructor() {}
@@ -28,6 +28,7 @@ export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
   }
   //搜索书本
   async searchBook() {
+    await BookConfig.choiceConfig();
     this.searchStr =
       (await vscode.window.showInputBox({
         placeHolder: "请输入小说的名字",
@@ -39,11 +40,11 @@ export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
 export default new SearchBookTree();
 //获取书本列表
 const getBookList = async (searchStr: string) => {
-  if (!searchStr) {
+  if (!searchStr || !BookConfig.config) {
     return Promise.resolve([]);
   }
   let { searchUrl, itemElement, nameElement, authorElement, hrefElement } =
-    bookConfig.searchBook;
+    BookConfig.config.searchBook;
   const getCearchUrl = searchUrl.replace("${name}", searchStr);
   const { data } = await axios.get(getCearchUrl);
   const $ = cheerio.load(data);
@@ -66,8 +67,8 @@ const getBookList = async (searchStr: string) => {
 //获取章节列表
 const getChaptersList = async (bookPath: string) => {
   let { listElement, itemElement, nameElement, hrefElement } =
-    bookConfig.chaptersConfig;
-  const { data } = await axios.get(bookConfig.baseUrl + bookPath);
+    BookConfig.config.chaptersConfig;
+  const { data } = await axios.get(BookConfig.config.baseUrl + bookPath);
   const $ = cheerio.load(data);
   let chaptersList: Dependency[] = [];
   $(listElement)

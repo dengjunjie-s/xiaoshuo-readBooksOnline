@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import SearchBookTree from "./TreeView/searchBookTree";
-import webView from "./webView/ChaptersReadView";
+import ChaptersReadView from "./webView/ChaptersReadView";
 export function activate(context: vscode.ExtensionContext) {
   //注册书treeView
   vscode.window.registerTreeDataProvider(
@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       "xiaoshuo-custom.openTextInfo",
       (chaptersPath: any) => {
-        webView(chaptersPath);
+        ChaptersReadView.loadBookText(chaptersPath);
       },
     ),
   );
