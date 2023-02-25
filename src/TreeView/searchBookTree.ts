@@ -19,7 +19,7 @@ export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
     return element;
   }
 
-  searchStr = "";
+  searchStr = "三体";
   getChildren(element?: Dependency): Thenable<Dependency[]> {
     if (!element) {
       return getBookList(this.searchStr);
@@ -66,9 +66,12 @@ const getBookList = async (searchStr: string) => {
 };
 //获取章节列表
 const getChaptersList = async (bookPath: string) => {
-  let { listElement, itemElement, nameElement, hrefElement } =
+  const { listElement, itemElement, nameElement, hrefElement, baseUrl } =
     BookConfig.config.chaptersConfig;
-  const { data } = await axios.get(BookConfig.config.baseUrl + bookPath);
+  const url = (baseUrl ? baseUrl : BookConfig.config.baseUrl) + bookPath;
+
+  const { data } = await axios.get(url);
+  console.log(url);
   const $ = cheerio.load(data);
   let chaptersList: Dependency[] = [];
   $(listElement)

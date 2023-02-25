@@ -1,7 +1,7 @@
 {
   "name": "xiaoshuo-readbooksonline",
   "displayName": "xiaoshuo-readBooksOnline",
-  "description": "摸",
+  "description": "摸鱼看小说，可以自定义小说源",
   "publisher": "xiaoshuo-readbooksonline",
   "icon": "static/images/fish.png",
   "repository": "https://github.com/dengjunjie-s/xiaoshuo-readBooksOnline",
@@ -53,6 +53,11 @@
         "jiege.customSourcePath": {
           "type": "string",
           "description": "小说源配置文件路径"
+        },
+        "jiege.bookStyle": {
+          "type": "string",
+          "default": "color:#686868; line-height:28px; font-size:16px; margin:0; padding:10px;",
+          "description": "配置小说窗口样式"
         }
       }
     }

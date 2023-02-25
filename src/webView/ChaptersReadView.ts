@@ -20,6 +20,9 @@ class ChaptersReadView {
         this.webView = undefined;
       });
     }
+    const bookStyle =
+      vscode.workspace.getConfiguration("jiege").get("bookStyle") + "";
+
     this.webView.webview.html = ` 
     <!DOCTYPE html>
       <html lang="en">
@@ -33,11 +36,15 @@ class ChaptersReadView {
       </body>
       <style>
         body{
-          margin: 0;
-           padding: 10px;
-           line-height: 28px;
+          ${
+            bookStyle
+              ? bookStyle
+              : `margin: 0;
+          padding: 10px;
+          line-height: 28px;
           color: #8d8d8d;
-          font-size: 16px;
+          font-size: 16px;`
+          }
        }
        </style>
       </html>

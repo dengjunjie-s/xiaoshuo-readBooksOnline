@@ -10,6 +10,7 @@ export default [
       hrefElement: "a", //跳转元素
     },
     chaptersConfig: {
+      baseUrl: "",
       listElement: ".listmain", //章节盒子
       itemElement: "dd", //章节item
       nameElement: "a", //章节名
@@ -20,7 +21,7 @@ export default [
     },
   },
   {
-    label: "预设：笔趣阁2",
+    label: "预设:笔趣阁2",
     baseUrl: "https://www.biquge7.top",
     searchBook: {
       searchUrl: "https://www.biquge7.top/search?keyword=${name}",

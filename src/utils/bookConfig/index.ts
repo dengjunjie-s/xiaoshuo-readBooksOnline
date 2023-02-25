@@ -2,12 +2,11 @@ import baseConfig from "./baseConfig";
 import * as vscode from "vscode";
 class BookConfig {
   constructor() {}
-  config: any;
+  config = baseConfig[0];
   lastTimePick: any;
   choiceConfig() {
     return new Promise(async (resolve, reject) => {
       const sourceList = [...baseConfig];
-      console.log(baseConfig);
       const customPath =
         vscode.workspace.getConfiguration("jiege").get("customSourcePath") + "";
       //获取自定义源
@@ -29,6 +28,7 @@ class BookConfig {
         label: string;
         index: number;
       }>();
+      quickPick.title = "选择小说源";
       quickPick.items = pickItem;
       quickPick.onDidChangeSelection((selection) => {
         let { label, index } = selection[0];
