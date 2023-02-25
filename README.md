@@ -1,12 +1,24 @@
 # xiaoshuo-custom 
 
-自定义小说源：
+## 搜索小说
 
-1，ctrl+, 
+![](https://raw.githubusercontent.com/dengjunjie-s/drawing-bed/main/xiaoshuo-readBooksOnline/1.png)
 
-2，在 jiege:customSourcePath中设置配置文件路径
 
-```json
+
+## 自定义小说源：
+
+1，按住ctrl + ，    打开vscode设置
+
+2，搜索jiege 在 jiege:customSourcePath中设置配置文件路径
+
+![](https://raw.githubusercontent.com/dengjunjie-s/drawing-bed/main/xiaoshuo-readBooksOnline/2.png)
+
+
+
+3，配置文件说明
+
+```
 // C:\Users\pig\Desktop\test.json
 //数组可以配置源列表
 [ 
@@ -49,4 +61,9 @@
 
 ```
 
+## 自定义样式
+
+1， 打开vscode设置
+
+2，搜索jiege 在jiege:bookstyle中设置style
 

@@ -4,8 +4,17 @@
   "description": "摸鱼看小说，可以自定义小说源",
   "publisher": "xiaoshuo-readbooksonline",
   "icon": "static/images/fish.png",
+  "keywords": [
+    "笔趣阁",
+    "reader",
+    "阅读",
+    "小说",
+    "摸鱼",
+    "起点",
+    "read"
+  ],
   "repository": "https://github.com/dengjunjie-s/xiaoshuo-readBooksOnline",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "engines": {
     "vscode": "^1.75.0"
   },

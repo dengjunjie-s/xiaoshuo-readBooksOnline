@@ -5,7 +5,7 @@ class BookConfig {
   config = baseConfig[0];
   lastTimePick: any;
   choiceConfig() {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       const sourceList = [...baseConfig];
       const customPath =
         vscode.workspace.getConfiguration("jiege").get("customSourcePath") + "";

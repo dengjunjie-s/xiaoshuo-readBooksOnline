@@ -19,7 +19,7 @@ export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
     return element;
   }
 
-  searchStr = "三体";
+  searchStr = "";
   getChildren(element?: Dependency): Thenable<Dependency[]> {
     if (!element) {
       return getBookList(this.searchStr);
