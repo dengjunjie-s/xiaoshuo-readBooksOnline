@@ -6,8 +6,10 @@ class ChaptersReadView {
   constructor() {}
   webView: vscode.WebviewPanel | undefined = undefined;
   async loadBookText(chaptersPath: string) {
-    let { contentElemen } = BookConfig.config.textConfig;
-    const { data } = await axios.get(BookConfig.config.baseUrl + chaptersPath);
+    let { contentElemen, baseUrl } = BookConfig.config.textConfig;
+    const { data } = await axios.get(
+      (baseUrl || BookConfig.config.baseUrl) + chaptersPath,
+    );
     const $ = cheerio.load(data);
     if (!this.webView) {
       this.webView = vscode.window.createWebviewPanel(

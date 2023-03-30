@@ -14,7 +14,7 @@
     "read"
   ],
   "repository": "https://github.com/dengjunjie-s/xiaoshuo-readBooksOnline",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -33,7 +33,7 @@
       "activitybar": [
         {
           "id": "jiege-sidebar",
-          "title": "祖安钢琴师",
+          "title": "xiaoshuo",
           "icon": "static/images/fish.svg"
         }
       ]

@@ -43,10 +43,18 @@ const getBookList = async (searchStr: string) => {
   if (!searchStr || !BookConfig.config) {
     return Promise.resolve([]);
   }
-  let { searchUrl, itemElement, nameElement, authorElement, hrefElement } =
-    BookConfig.config.searchBook;
+  let {
+    searchUrl,
+    itemElement,
+    nameElement,
+    authorElement,
+    hrefElement,
+    isEncodeURI,
+  } = BookConfig.config.searchBook;
   const getCearchUrl = searchUrl.replace("${name}", searchStr);
-  const { data } = await axios.get(getCearchUrl);
+  const { data } = await axios.get(
+    isEncodeURI ? encodeURI(getCearchUrl) : getCearchUrl,
+  );
   const $ = cheerio.load(data);
 
   const bookList: Dependency[] = [];
@@ -66,32 +74,42 @@ const getBookList = async (searchStr: string) => {
 };
 //获取章节列表
 const getChaptersList = async (bookPath: string) => {
-  const { listElement, itemElement, nameElement, hrefElement, baseUrl } =
-    BookConfig.config.chaptersConfig;
-  const url = (baseUrl ? baseUrl : BookConfig.config.baseUrl) + bookPath;
-
+  const {
+    listElement,
+    itemElement,
+    nameElement,
+    hrefElement,
+    baseUrl,
+    lastUrl,
+  } = BookConfig.config.chaptersConfig;
+  const url =
+    (baseUrl ? baseUrl : BookConfig.config.baseUrl) +
+    bookPath +
+    (lastUrl || "");
   const { data } = await axios.get(url);
-  console.log(url);
   const $ = cheerio.load(data);
   let chaptersList: Dependency[] = [];
-  $(listElement)
-    .first()
-    .find(itemElement)
-    .each((index: number, element: any) => {
-      let chaptersPathElement: any = $(element).find(hrefElement).first()[0];
-      chaptersList.push(
-        new Dependency(
-          $(element).find(nameElement).first().text(),
-          vscode.TreeItemCollapsibleState.None,
-          chaptersPathElement.attribs.href,
-          {
-            title: "打开章节",
-            command: "xiaoshuo-custom.openTextInfo",
-            arguments: [chaptersPathElement.attribs.href],
-          },
-        ),
-      );
-    });
+  $(listElement).each((index: number, boxElement: any) => {
+    $(boxElement)
+      .find(itemElement)
+      .each((index: number, element: any) => {
+        const chaptersPathElement: any = $(element)
+          .find(hrefElement)
+          .first()[0];
+        chaptersList.push(
+          new Dependency(
+            $(element).find(nameElement).first().text(),
+            vscode.TreeItemCollapsibleState.None,
+            chaptersPathElement?.attribs.href,
+            {
+              title: "打开章节",
+              command: "xiaoshuo-custom.openTextInfo",
+              arguments: [chaptersPathElement?.attribs?.href],
+            },
+          ),
+        );
+      });
+  });
   return Promise.resolve(chaptersList);
 };
 class Dependency extends vscode.TreeItem {
