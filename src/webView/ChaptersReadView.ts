@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
-const axios = require("axios");
+
+import superagent from "../utils/superagent";
 import * as cheerio from "cheerio";
 import BookConfig from "../utils/bookConfig/index";
 class ChaptersReadView {
@@ -7,8 +8,11 @@ class ChaptersReadView {
   webView: vscode.WebviewPanel | undefined = undefined;
   async loadBookText(chaptersPath: string) {
     let { contentElemen, baseUrl } = BookConfig.config.textConfig;
-    const { data } = await axios.get(
+
+    let { decode } = BookConfig.config;
+    const data = await superagent(
       (baseUrl || BookConfig.config.baseUrl) + chaptersPath,
+      decode ? decode : "utf-8",
     );
     const $ = cheerio.load(data);
     if (!this.webView) {

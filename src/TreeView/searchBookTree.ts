@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
-const axios = require("axios");
 import * as cheerio from "cheerio";
+import superagent from "../utils/superagent";
+import gbk from "../utils/gbk";
 import BookConfig from "../utils/bookConfig/index";
-
 export class SearchBookTree implements vscode.TreeDataProvider<Dependency> {
   constructor() {}
   private _onDidChangeTreeData: vscode.EventEmitter<
@@ -49,12 +49,18 @@ const getBookList = async (searchStr: string) => {
     nameElement,
     authorElement,
     hrefElement,
-    isEncodeURI,
+    nameEncodeType,
   } = BookConfig.config.searchBook;
-  const getCearchUrl = searchUrl.replace("${name}", searchStr);
-  const { data } = await axios.get(
-    isEncodeURI ? encodeURI(getCearchUrl) : getCearchUrl,
-  );
+
+  let { decode } = BookConfig.config;
+
+  const getCearchUrl =
+    nameEncodeType === "encodeUrl"
+      ? encodeURI(searchUrl.replace("${name}", searchStr))
+      : nameEncodeType === "gbk"
+      ? searchUrl.replace("${name}", gbk.encode(searchStr))
+      : searchUrl.replace("${name}", searchStr);
+  let data = await superagent(getCearchUrl, decode ? decode : "utf-8");
   const $ = cheerio.load(data);
 
   const bookList: Dependency[] = [];
@@ -82,35 +88,43 @@ const getChaptersList = async (bookPath: string) => {
     baseUrl,
     lastUrl,
   } = BookConfig.config.chaptersConfig;
+  let { decode } = BookConfig.config;
+
   const url =
     (baseUrl ? baseUrl : BookConfig.config.baseUrl) +
     bookPath +
     (lastUrl || "");
-  const { data } = await axios.get(url);
-  const $ = cheerio.load(data);
-  let chaptersList: Dependency[] = [];
-  $(listElement).each((index: number, boxElement: any) => {
-    $(boxElement)
-      .find(itemElement)
-      .each((index: number, element: any) => {
-        const chaptersPathElement: any = $(element)
-          .find(hrefElement)
-          .first()[0];
-        chaptersList.push(
-          new Dependency(
-            $(element).find(nameElement).first().text(),
-            vscode.TreeItemCollapsibleState.None,
-            chaptersPathElement?.attribs.href,
-            {
-              title: "打开章节",
-              command: "xiaoshuo-custom.openTextInfo",
-              arguments: [chaptersPathElement?.attribs?.href],
-            },
-          ),
-        );
-      });
-  });
-  return Promise.resolve(chaptersList);
+  try {
+    let data = await superagent(url, decode ? decode : "utf-8");
+    const $ = cheerio.load(data);
+    let chaptersList: Dependency[] = [];
+    $(listElement).each((index: number, boxElement: any) => {
+      $(boxElement)
+        .find(itemElement)
+        .each((index: number, element: any) => {
+          const chaptersPathElement: any = $(element)
+            .find(hrefElement)
+            .first()[0];
+          chaptersList.push(
+            new Dependency(
+              $(element).find(nameElement).first().text(),
+              vscode.TreeItemCollapsibleState.None,
+              chaptersPathElement?.attribs.href,
+              {
+                title: "打开章节",
+                command: "xiaoshuo-custom.openTextInfo",
+                arguments: [chaptersPathElement?.attribs?.href],
+              },
+            ),
+          );
+        });
+    });
+
+    return Promise.resolve(chaptersList);
+  } catch (err) {
+    console.log(err);
+  }
+  return Promise.resolve([]);
 };
 class Dependency extends vscode.TreeItem {
   constructor(
