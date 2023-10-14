@@ -1,69 +1,64 @@
-# xiaoshuo-custom 
+## 自定小说源配置：
 
-## 搜索小说
+需要转成json字符串传入
 
-![](https://raw.githubusercontent.com/dengjunjie-s/drawing-bed/main/xiaoshuo-readBooksOnline/1.png)
-
-
-
-## 自定义小说源：
-
-1，按住ctrl + ，    打开vscode设置
-
-2，搜索jiege 在 jiege:customSourcePath中设置配置文件路径
-
-![](https://raw.githubusercontent.com/dengjunjie-s/drawing-bed/main/xiaoshuo-readBooksOnline/2.png)
-
-
-
-3，配置文件说明
-
-```
-// C:\Users\pig\Desktop\test.json
-//数组可以配置源列表
-[ 
-  {
-     //小说源名
-    "label": "笔趣阁",
-      //小说网站baseurl
-    "baseUrl": "https://www.biquge7.top",
-      //搜索书本配置
-    "searchBook": {
-        //搜索网站
-      "searchUrl": "https://www.biquge7.top/search?keyword=${name}",
-        //书的item元素
-      "itemElement": ".title",
-        //书名元素
-      "nameElement": "a",
-        //作者元素
-      "authorElement": ".author",
-        //书本详情跳转元素
-      "hrefElement": "a"
+```json
+{
+    label: "起点",
+    baseUrl: "https://www.qidian.com",
+    webCode: "", //网页编码: 支持 utf8(默认),gbk
+    searchBook: {
+      searchUrl: "https://www.qidian.com/soushu/${name}.html", //搜索小说路径：${name}替换为小说名
+      nameCode: "encodeURI", //小说名转换格式: 默认不转换，支持 gbk，encodeURI
+      listElement: ".volume", // 书本列表的标签元素
+      itemElement: ".res-book-item", // 书本列表成员标签元素
+      nameElement: ".book-info-title", //书本名标签元素
+      authorElement: ".author", //作者标签元素
+      hrefElement: "a", //跳转标签元素
     },
-      //章节配置
-    "chaptersConfig": {
-        //章节列表元素
-      "listElement": ".list",
-        //章节item元素
-      "itemElement": "li",
-        //章节名称元素
-      "nameElement": "a",
-        //章节跳转元素
-      "hrefElement": "a"
+    chaptersConfig: {
+      baseUrl: "https:",
+      listElement: ".catalog-all", //书本列表的标签元素
+      itemElement: "li", //章节列表成员标签元素
+      nameElement: "a", //章节名标签元素
+      hrefElement: "a", //跳转标签元素
     },
-      //小说配置
-    "textConfig": {
-        //小说内容元素
-      "contentElemen": ".text"
-    }
+    textConfig: {
+      baseUrl: "https:",
+      contentElemen: ".relative", //小说文本标签元素
+    },
   }
-]
-
 ```
+
+## 载入小说配置
+
+```json
+{
+      label: "长陵",
+      webCode: "gbk", //网页编码: 支持 utf8(默认),gbk
+      chaptersConfig: {
+        baseUrl: "https://www.52bqg.org/book_109430/",
+        listElement: "#list", //书本列表的标签元素
+        itemElement: "dd", //章节列表成员标签元素
+        nameElement: "a", //章节名标签元素
+        hrefElement: "a", //跳转标签元素
+      },
+      textConfig: {
+        baseUrl: "https://www.52bqg.org/book_109430/",
+        contentElemen: "#content", //小说文本标签元素
+      },
+    }
+```
+
+
 
 ## 自定义样式
 
 1， 打开vscode设置
 
 2，搜索jiege 在jiege:bookstyle中设置style
+
+## 快捷转json字符串
+
+https://www.runoob.com/try/try.php?filename=tryjson_stringify1
 

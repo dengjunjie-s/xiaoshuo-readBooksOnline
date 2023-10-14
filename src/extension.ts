@@ -14,6 +14,13 @@ export function activate(context: vscode.ExtensionContext) {
     }),
   );
 
+  //搜索书本命令
+  context.subscriptions.push(
+    vscode.commands.registerCommand("xiaoshuo-custom.loadBook", () => {
+      SearchBookTree.loadBook();
+    }),
+  );
+
   context.subscriptions.push(
     vscode.commands.registerCommand(
       "xiaoshuo-custom.openTextInfo",

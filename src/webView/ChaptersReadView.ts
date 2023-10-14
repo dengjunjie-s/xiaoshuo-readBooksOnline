@@ -9,10 +9,11 @@ class ChaptersReadView {
   async loadBookText(chaptersPath: string) {
     let { contentElemen, baseUrl } = BookConfig.config.textConfig;
 
-    let { decode } = BookConfig.config;
+    let { webCode } = BookConfig.config;
+    console.log((baseUrl || BookConfig.config.baseUrl) + chaptersPath);
     const data = await superagent(
       (baseUrl || BookConfig.config.baseUrl) + chaptersPath,
-      decode ? decode : "utf-8",
+      webCode ? webCode : "utf-8",
     );
     const $ = cheerio.load(data);
     if (!this.webView) {

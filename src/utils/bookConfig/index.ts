@@ -3,26 +3,17 @@ import * as vscode from "vscode";
 class BookConfig {
   constructor() {}
   config = baseConfig[0];
-  lastTimePick: any;
   choiceConfig() {
     return new Promise(async (resolve) => {
       const sourceList = [...baseConfig];
-      const customPath =
-        vscode.workspace.getConfiguration("jiege").get("customSourcePath") + "";
       //获取自定义源
-      if (customPath) {
-        try {
-          const customSource = await import(customPath);
-          customSource.forEach((element: any) => {
-            sourceList.push(element);
-          });
-        } catch (err) {
-          console.log(err);
-        }
-      }
-      const pickItem = this.lastTimePick ? [this.lastTimePick] : [];
+      const pickItem: any[] = [
+        {
+          label: "自定义小说源",
+        },
+      ];
       sourceList.forEach(({ label }, index) => {
-        pickItem.push({ label, index });
+        pickItem.push({ label, index: index + 1 });
       });
       const quickPick = vscode.window.createQuickPick<{
         label: string;
@@ -30,14 +21,19 @@ class BookConfig {
       }>();
       quickPick.title = "选择小说源";
       quickPick.items = pickItem;
-      quickPick.onDidChangeSelection((selection) => {
+      quickPick.onDidChangeSelection(async (selection) => {
         let { label, index } = selection[0];
-        this.config = sourceList[index];
-        this.lastTimePick = {
-          label: "上一次选择： " + label,
-          index,
-        };
-        quickPick.dispose();
+        if (!index) {
+          quickPick.dispose();
+          this.config = JSON.parse(
+            (await vscode.window.showInputBox({
+              placeHolder: "小说源: 输入小说配置json",
+            })) + "",
+          );
+        } else {
+          this.config = sourceList[index - 1];
+          quickPick.dispose();
+        }
         resolve(true);
       });
       quickPick.onDidHide(() => {
@@ -45,6 +41,9 @@ class BookConfig {
       });
       quickPick.show();
     });
+  }
+  setConfig(data: any) {
+    this.config = data;
   }
 }
 export default new BookConfig();
