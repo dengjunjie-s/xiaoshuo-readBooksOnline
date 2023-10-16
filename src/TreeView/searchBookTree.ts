@@ -77,7 +77,9 @@ const getBookList = async (searchStr: string) => {
       : nameCode === "gbk"
       ? searchUrl.replace("${name}", gbk.encode(searchStr))
       : searchUrl.replace("${name}", searchStr);
+  console.log(getCearchUrl);
   let data = await superagent(getCearchUrl, webCode ? webCode : "utf-8");
+  console.log(data);
   const $ = cheerio.load(data);
 
   const bookList: Dependency[] = [];
@@ -104,7 +106,7 @@ const getChaptersList = async (bookPath: string, type: string) => {
     type === "小说源"
       ? (baseUrl ? baseUrl : BookConfig.config.baseUrl) + bookPath
       : bookPath;
-
+  console.log(url);
   try {
     let data = await superagent(url, webCode ? webCode : "utf-8");
     const $ = cheerio.load(data);

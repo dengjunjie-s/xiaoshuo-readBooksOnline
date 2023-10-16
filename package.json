@@ -14,7 +14,7 @@
     "read"
   ],
   "repository": "https://github.com/dengjunjie-s/xiaoshuo-readBooksOnline",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -24,6 +24,10 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "xiaoshuo-custom.loadHtml",
+        "title": "载入HTML"
+      },
       {
         "command": "xiaoshuo-custom.loadBook",
         "title": "载入小说"
@@ -52,6 +56,11 @@
     },
     "menus": {
       "view/title": [
+        {
+          "command": "xiaoshuo-custom.loadHtml",
+          "when": "view == jiege-sidebar-bookTree",
+          "group": "navigation"
+        },
         {
           "command": "xiaoshuo-custom.loadBook",
           "when": "view == jiege-sidebar-bookTree",
