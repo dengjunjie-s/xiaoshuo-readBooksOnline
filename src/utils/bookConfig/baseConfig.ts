@@ -49,29 +49,4 @@ export default [
       contentElemen: ".novelbody", //小说文本标签元素
     },
   },
-  {
-    label: "七猫",
-    baseUrl: "",
-    webCode: "gbk", //网页编码: 支持 utf8(默认),gbk
-    searchBook: {
-      searchUrl: "https://www.qimao.com/search/index/?keyword=${name}", //搜索小说路径：${name}替换为小说名
-      nameCode: "encodeURI", //小说名转换格式: 默认不转换，支持 gbk，encodeURI
-      listElement: ".border-top .col-a .qm-mod .qm-pic", // 书本列表的标签元素
-      itemElement: "li", // 书本列表成员标签元素
-      nameElement: ".txt .s-tit a", //书本名标签元素
-      authorElement: ".txt .p-bottom a", //作者标签元素
-      hrefElement: "a", //跳转标签元素
-    },
-    chaptersConfig: {
-      baseUrl: "",
-      listElement: ".cytable", //书本列表的标签元素
-      itemElement: "tr", //章节列表成员标签元素
-      nameElement: "a", //章节名标签元素
-      hrefElement: "a", //跳转标签元素
-    },
-    textConfig: {
-      baseUrl: "",
-      contentElemen: ".novelbody", //小说文本标签元素
-    },
-  },
 ];

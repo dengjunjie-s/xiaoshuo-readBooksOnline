@@ -7,9 +7,9 @@ class ChaptersReadView {
   constructor() {}
   webView: vscode.WebviewPanel | undefined = undefined;
   async loadBookText(chaptersPath: string) {
-    let { contentElemen, baseUrl } = BookConfig.config.textConfig;
+    let { contentElemen, baseUrl, antiTheftList }: any =
+      BookConfig.config.textConfig;
     let { webCode } = BookConfig.config;
-    console.log((baseUrl || BookConfig.config.baseUrl || "") + chaptersPath);
     const data = await superagent(
       (baseUrl || BookConfig.config.baseUrl || "") + chaptersPath,
       webCode ? webCode : "utf-8",
@@ -29,6 +29,11 @@ class ChaptersReadView {
     const bookStyle =
       vscode.workspace.getConfiguration("jiege").get("bookStyle") + "";
 
+    let htmlBody = $(contentElemen).html() + "";
+    antiTheftList?.forEach(([oStr, nStr]: any) => {
+      htmlBody = htmlBody.replace(oStr + "", nStr + "");
+    });
+
     this.webView.webview.html = ` 
     <!DOCTYPE html>
       <html lang="en">
@@ -38,7 +43,7 @@ class ChaptersReadView {
        <title>Cat Coding</title>
       </head>
       <body>
-        ${$(contentElemen).html() + ""}
+        ${htmlBody}
       </body>
       <style>
         body{
